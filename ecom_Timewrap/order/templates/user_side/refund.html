@@ -1,0 +1,42 @@
+{% extends 'index.html' %} 
+{% load static %} 
+
+{% block content %}
+
+<div class="container m-t-125 mb-5">
+    <div class="row d-flex cart align-items-center justify-content-center">
+        <div class="col-md-10">
+            <div class="bread-crumb flex-w p-r-15 p-t-2 mb-2 p-lr-0-lg">
+                
+            </div>
+
+            {% for message in messages %}
+            <div class="alert alert-danger" role="alert">
+              {{message}}
+   
+               </div>
+              {% endfor %}
+
+            <div class="card m-2">
+                <div class="row g-0">
+                    <div class="col-md-12 border-right p-5">
+                        <div class="text-center order-details">
+                            <span class="font-weight-bold fs-25">Refund Request Submited Successfully</span><br><br><br>
+                            <div class="d-flex justify-content-center mb-5 flex-column align-items-center">
+                                <span class="check1"><img src="{% static 'image/check.jpg' %}" style="width:80px;height:80px;"alt=""></span><br>
+                                <span class="font-weight-bold fs-20">We are processing your request we will respond as possible</span>
+                        
+                                <small class="mt-2 fs-15">Your order ID is :{{order_id}} </small>
+                            </div>
+                            <a href="{% url 'store' %}" class="btn btn-danger order-button">CONTINUE SHOPPING</a>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %} 

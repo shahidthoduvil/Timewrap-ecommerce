@@ -1,0 +1,85 @@
+{% extends "index.html"%}
+
+{% load static %}
+
+
+
+{% block content %}
+
+
+<section class="vh-75">
+
+    <div class="container py-4 h-75">
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+            
+                            {% include 'alert.html'  %}
+                     
+                        <form action="{% url 'sign_up'%}" method="post">
+                            {% csrf_token %}
+
+                            <div class="card-header bg">
+                                <h4 class="mb-0 text-center">SIGNUP</h4>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="form-group">
+                                    <label for="first_name">FIRST NAME</label>
+                                    {{form.first_name}}
+                               
+                                </div>
+                                <div class="form-group">
+                                    <label for="last_name">SECOND NAME</label>
+                                    {{form.last_name}}
+                                 <small id="" class="form-text text-muted">
+                                    </small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">USERNAME</label>
+                                    {{form.username}}
+                                   
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">EMAIL</label>
+                                    {{form.email}}
+                                  
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone_number">PHONE NUMBER</label>
+                                    {{form.phone_number}}
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">PASSWORD</label>
+                                    {{form.password}}
+                                   
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">CONFIRM PASSWORD </label>
+                                    {{form.confirm_password}}
+                                    
+                                </div>
+                                <div class="form-group bg-">
+                                <button type="submit" class="btn btn-primary btn-block">submit</button>
+                                </div>
+                                <p class="text-center">already have an account? <a href="{% url 'login' %}">login</a></p>
+                                 {{form.email.errors}}
+                                 {{form.non_field_errors}}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+
+{% endblock content %}

@@ -1,0 +1,45 @@
+{%extends 'index.html' %}
+{% load static%}
+{% block content %}
+
+
+<div class="container">
+  <div class="row">
+    {% for a in address %}
+
+    <div class="col-sm-6">
+      <div class="card text-center">
+        <div class="card-header ">
+          ADDRESS
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p class="card-text">{{a.name}} </p>
+          <p>{{a.house_name}} , {{a.landmark}} {{a.pincode}} , {{a.city}} , {{a.district}},{{a.state}},{{a.country}} .</p>
+            <p>{{a.phone_number}}</p>
+            <p>EMAIL:{{a.email_2}}</p>
+        
+        </div>
+        <div class="card-footer text-muted">
+          <a href="{% url 'edit_address' a.id %}" class="btn btn-outline-dark bg-warining">ADDRESS EDIT</a>
+
+          <a href="{% url 'address_delete' a.id %}" class="btn btn-outline-dark bg-warining">ADDRESS DELETE</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <div class="col-sm-6">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <a href="{% url 'add_address' %}" class="btn btn-outline-dark bg-warining">ADD ADDRESS</a>
+        </div>
+      </div>
+  </div>
+
+
+</div>
+
+
+
+
+{% endblock %}

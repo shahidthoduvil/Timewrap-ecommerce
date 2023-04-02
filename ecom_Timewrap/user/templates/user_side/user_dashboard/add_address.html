@@ -1,0 +1,49 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="list-group">
+                <a href="{% url 'profile' %}" class="list-group-item active">Profile</a>
+                <a href="{% url 'address_view' %}" class="list-group-item">Address</a>
+             
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col">
+                    <nav aria-label="breadcrumb" class="rounded-3 p-3 mb-4"></nav>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form action="{% url 'add_address' %}" method="POST">
+
+                            {% csrf_token %} 
+                            {{form.as_p}}
+
+                            <button type="submit" class="btn btn-primary fw-bold btn-block w-50"
+                                style="font-size: 20px; border-radius: 10px; margin-top: -5px padding-top: 20px;"
+                                action="">Save
+                            </button>
+                           
+                        </form>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+{% endblock %}

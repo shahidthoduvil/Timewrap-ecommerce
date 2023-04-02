@@ -1,0 +1,345 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="container-fluid mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 50px">
+
+        <div class="d-inline-flex">
+            <p class="m-0"><a href=""></a></p>
+            <p class="m-0 px-2"></p>
+            <p class="m-0"></p>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid py-5">
+    <div class="row px-xl-5">
+
+        <div class="col-lg-5 pb-5">
+            <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner border">
+                    <div class="carousel-item active">
+                        <img class=" big_img" src="{{single_product.image.url}}" style="width:100%;
+                        height: 40vh; object-fit:contain;" alt="Image">
+                    </div>
+                    {% for m in mult %}
+                    <div class="carousel-item " data-bs-inervel="1000">
+
+                        <img class=" big_img" src="{{m.img.url}}" style="width:100%;
+                        height: 40vh; object-fit:contain;" alt="Image">
+                    </div>
+                    {% endfor%}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7 pb-5">
+            <form action="{% url 'add_cart' single_product.id %}?variant={{selected_variant}}" method="POST">
+                {% csrf_token %}
+                <h3 class="font-weight-semi-bold">
+                    {{single_product.title}}
+                </h3>
+
+
+                {% if variant_price %}
+
+                <h3 class="font-weight-semi-bold mb-4"> ₹{{ variant_price }}.00</h3>
+                {% else %}
+                <h3 class="font-weight-semi-bold mb-4">{{single_product.price}}</h3>
+                {% endif %}
+                <p class="mb-4">{{single_product.description}}</p>
+                <hr>
+                <br>
+
+
+
+                {% if variants %}
+                <select class="js-select2" onchange="get_current_price()" name="selected_variant" required>
+                    <!-- choose-storage -->
+
+                    {% if selected_variant %}
+                    <option value="{{selected_variant}}" selected>
+                        {{color}} |
+                    </option>
+                    {% else %}
+                    <option value="" selected>Select
+
+                    </option>
+                    {% endif %}
+
+                    {% for variant in variants %}
+
+                    <option value="{{variant}}">{{variant.color}}</option>
+                    {% endfor %}
+
+
+                </select>
+                {% endif %}
+
+
+                <hr>
+                <br>
+                <br>
+                {% if single_product.stock <= 0 %} <h5 class="text-danger"> out of stock</h5>
+
+                    {% else %}
+                    <button type="submit" class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To Cart</button>
+
+                    <a href="{% url 'add_wishlist' single_product.id %}" class="btn btn-primary px-3 m-3"></i>
+                        wishlist</a>
+                    {% endif %}
+            </form>
+            {% include 'alert.html' %}
+
+        </div>
+
+    </div>
+
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="nav nav-tabs justify-content-center border-secondary mb-4">
+                <a class="nav-item nav-link active" data-toggle="tab" href="#tab-pane-1">specification</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#tab-pane-3"> Product Reviews</a>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="tab-pane-1">
+                    <h4 class="mb-3">Product specification</h4>
+                    <p>{{single_product.specification}}</p>
+                    <p></p>
+                </div>
+                <div class="tab-pane fade" id="tab-pane-3">
+                    <div class="bor10 m-t-50 p-t-43 p-b-40">
+                    {% if review %}
+                    {% for r in review %}
+                        <div class="col-md-6">
+                            <h4 class="mb-4"></h4>
+                            <div class="media mb-4">
+                                <img src="{{r.user.pic.url}}" alt="Image" class="img-fluid mr-3 mt-1"
+                                    style="width: 45px;">
+                                <div class="media-body">
+                                    <h6>{{r.user.username}}<small> <i>({{r.created_at}})</i></small> </h6>
+                                    <p>{{r.review}}</p>
+                                    <p>review rating  :<span> {{r.rating}}</span></p>
+                             
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        <!-- Tab01 -->
+                        <div class="tab01">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <!-- Reviews -->
+                                <li class="nav-item p-b-10">
+                                    <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Reviews </a>
+                                </li>
+                            </ul>
+
+                            <!-- Tab panes -->
+                            <div class="tab-content p-t-43 text-center">
+
+
+            
+                                <div class="tab-pane fade" id="reviews" role="tabpanel">
+                                    <div class="row">
+                                        <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                            <div class="p-b-30 m-lr-15-sm">
+
+                                                <!-- Review -->
+                                                {% if reviews %}
+                                                <div class="bg-dark py-2 rounded mb-4">
+                                                    <h6 class="text-light">
+                                                        Average rating: <span class="text-warning">4.5/5.0
+                                                            <i class="ms-1 zmdi zmdi-star"></i></span>
+                                                    </h6>
+                                                </div>
+
+                                                {% for review in reviews %}
+                                                <div class="flex-w flex-t p-b-68 text-left">
+                                                    <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
+                                                        <img src="{{review.user.user_image.url}}"
+                                                            alt="{{user.username}}">
+                                                    </div>
+
+                                                    <div class="size-207">
+                                                        <div class="flex-w flex-sb-m p-b-17">
+                                                            <span class="mtext-107 cl2 p-r-20 mt-4">
+                                                                <b>{{review.user.first_name}}</b>
+                                                            </span>
+
+                                                            <span class="fs-18 cl11">
+                                                                <span>{{review.rating}}/5.0 <i
+                                                                        class="ms-1 zmdi zmdi-star"></i><span>
+                                                                    </span>
+                                                        </div>
+
+                                                        <p class="stext-102 cl6">
+                                                            {{review.review}}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+
+                                                {% else %}
+                                                <h5 class="mtext-108 cl2 p-b-7">No reviews on this product</h5>
+                                                <hr>
+                                                {% endif %}
+                                                <!-- Add review -->
+                                                {% if user.is_authenticated %}
+
+                                                <form action="{% url 'submit_review' single_product.id %}" method="POST"
+                                                    class="w-full">
+                                                    {% csrf_token %}
+                                                    <h5 class="mtext-108 cl2 p-b-7">
+                                                        Add a review
+                                                    </h5>
+
+                                                    <div class="flex-w flex-m p-t-50 p-b-23">
+                                                        <span class="stext-102 cl3 m-r-16">
+                                                            Your Rating
+                                                        </span>
+
+
+                                                        <div class="rate">
+                                                            <input type="radio" name="rating" id="rating10" value="5"
+                                                                required><label for="rating10" title="5"></label>
+                                                            <input type="radio" name="rating" id="rating9" value="4.5"
+                                                                required><label for="rating9" title="4.5"
+                                                                class="half"></label>
+                                                            <input type="radio" name="rating" id="rating8" value="4"
+                                                                required><label for="rating8" title="4"></label>
+                                                            <input type="radio" name="rating" id="rating7" value="3.5"
+                                                                required><label for="rating7" title="3.5"
+                                                                class="half"></label>
+                                                            <input type="radio" name="rating" id="rating6" value="3"
+                                                                required><label for="rating6" title="3"></label>
+                                                            <input type="radio" name="rating" id="rating5" value="2.5"
+                                                                required><label for="rating5" title="2.5"
+                                                                class="half"></label>
+                                                            <input type="radio" name="rating" id="rating4" value="2"
+                                                                required><label for="rating4" title="2"></label>
+                                                            <input type="radio" name="rating" id="rating3" value="1.5"
+                                                                required><label for="rating3" title="1.5"
+                                                                class="half"></label>
+                                                            <input type="radio" name="rating" id="rating2" value="1"
+                                                                required><label for="rating2" title="1"></label>
+                                                            <input type="radio" name="rating" id="rating1" value="0.5"
+                                                                required><label for="rating1" title="0.5"
+                                                                class="half"></label>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="row p-b-25">
+
+                                                        <div class="col-12 p-b-5">
+                                                            <label class="stext-102 cl3" for="#review">Your
+                                                                review</label>
+                                                            <textarea
+                                                                class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"
+                                                                id="review" name="review"></textarea>
+                                                        </div>
+                                                    </div>
+
+                                                    <button type="submit"
+                                                        class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+                                                        Submit
+                                                    </button>
+
+
+                                                    {% else %}
+                                                    <h6>Please login to submit your review.<a href="login">Login here<a>
+                                                                {% endif %}
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Products End -->
+
+
+<!-- Products Start -->
+
+
+
+<div class="container-fluid pt-5">
+    <div class="text-center mb-4 bg-primary">
+
+        <h2 class="section-title px-5">
+            <span class="px-2">YOU MAY ALSO LIKE THIS</span>
+        </h2>
+    </div>
+    <div class="row px-xl-5">
+
+        <div class="col">
+
+            <div class="owl-carousel related-carousel">
+                {% for p in products|slice:"0:4" %}
+                <div class="card product-item border-0">
+                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                        <img class="img-fluid " src="{{p.image.url}}" style="width: 100%;
+                        height: 15vw;
+                        object-fit: contain;" alt="">
+                    </div>
+                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                        <h6 class="text-truncate mb-3">{{p.title}}</h6>
+                        <div class="d-flex justify-content-center">
+                            <h6>{{p.price}}</h6>
+                            <h6 class="text-muted ml-2"><del>{{p.price}}</del></h6>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between bg-light border">
+                        <a href="{{p.get_url}}" class="btn btn-sm text-dark p-0"><i
+                                class="fas fa-eye text-primary mr-1"></i>View
+                            Detail</a>
+                        </a>
+                        <a href="{% url 'add_wishlist' p.id  %}" class="btn btn-sm text-dark p-0 text-center"><i
+                                class="fa-solid fa-heart"></i> whishlist
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+    function get_current_price(variant) {
+        var variant = document.querySelector('select[name="selected_variant"]').value;
+        window.location.href = window.location.pathname + `?variant=${variant}`
+
+        // show element with name="seleced_variant"
+        var disabledOption = selectElement.querySelector('option[disabled][selected]');
+        disabledOption.textContent = variant;
+    }
+</script>
+
+
+
+{% endblock content %}

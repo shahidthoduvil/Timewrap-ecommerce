@@ -1,0 +1,165 @@
+{%extends 'base2.html'%}
+{% load static %}
+{% block content %}
+
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>COLOR</h1>
+
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="">dashboard</a></li>
+        <li class="breadcrumb-item"><a href="">product</a></li>
+        <li class="breadcrumb-item"><a href="">Color</a></li>
+
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+  </section>
+
+  <table class="table table-bordered datatable">
+    <thead>
+      <tr>
+
+        <th scope="col" class="text-center">id</th>
+        <th scope="col" class="text-center">Color Name</th>
+        <th scope="col" class="text-center">slug</th>
+        <th scope="col" class="text-center">ACTION</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in colr %}
+      <tr>
+        <td scope="row" class="text-center">{{c.id}}</td>
+        <td class="text-center">{{c.color_name}}</td>
+        <td class="text-center">{{c.slug}}</td>
+        <td class="text-center">
+          <a href="{% url 'color_delete' c.id %}" type="submit" class="btn btn-danger">Delete</a>
+          <button type="button" class="btn btn-success" data-bs-toggle="modal"
+            data-bs-target="#editModal{{forloop.counter}}">
+            Edit
+          </button>
+        </td>
+      </tr>
+
+      {% endfor %}
+
+
+    </tbody>
+
+  </table>
+  {% for c in colr%}
+  <div class="modal fade" id="editModal{{forloop.counter}}" tabindex="-1" aria-labelledby="editModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="editModalLabel">category</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'color_edit' c.id %}" class="mx-1 mx-md-4" method="post">
+            {% csrf_token %}
+
+            {% for m in messages %}
+            <div id="message" class="alert alert-info" role="alert">
+              {{m}}
+            </div>
+          {% endfor %}
+            <div class="d-flex flex-row align-items-center mb-4">
+              <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+              <div class="form-outline flex-fill mb-0">
+                <input value="{{c.color_name}}" name="col_name" type="text" id="form3Example1c" class="form-control" />
+                <label class="form-label" for="form3Example1c"> Color Name</label>
+              </div>
+            </div>
+            <div class="d-flex flex-row align-items-center mb-4">
+              <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+              <div class="form-outline flex-fill mb-0">
+                <input value="{{c.slug}}" name="slug" type="text" id="form3Example1c" class="form-control" />
+                <label class="form-label" for="form3Example1c">slug</label>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">submit</button>
+
+            </div>
+
+          </form>
+
+
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  {% endfor%}
+
+  <!-- add category -->
+  <button type="button" class="btn btn-success" data-bs-toggle="modal"
+    data-bs-target="#addModal{{forloop.counter}}">ADD</button>
+  <div class="modal fade" id="addModal{{forloop.counter}}" tabindex="-1" aria-labelledby="addModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="addModalLabel">color</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'color_add' %}" class="mx-1 mx-md-4" method="post">
+            {% csrf_token %}
+            {% for m in messages %}
+            <div id="message" class="alert alert-info" role="alert">
+              {{m}}
+            </div>
+          {% endfor %}
+            <div class="d-flex flex-row align-items-center mb-4">
+              <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+              <div class="form-outline flex-fill mb-0">
+                <input value="" name="c_name" type="text" id="form3Example1c" class="form-control" />
+                <label class="form-label" for="form3Example1c"> Color Name</label>
+              </div>
+            </div>
+            <div class="d-flex flex-row align-items-center mb-4">
+              <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+              <div class="form-outline flex-fill mb-0">
+                <input value="" name="slug" type="text" id="form3Example1c" class="form-control" />
+                <label class="form-label" for="form3Example1c">slug</label>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">update</button>
+
+            </div>
+
+          </form>
+        </div>
+
+
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+
+</main>
+
+
+
+
+{% endblock %}

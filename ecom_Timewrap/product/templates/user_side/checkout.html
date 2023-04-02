@@ -1,0 +1,219 @@
+{%extends 'index.html' %}
+
+{% load static%}
+
+
+
+{% block content %}
+
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">checkout</h1>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href=""></a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0"></p>
+        </div>
+    </div>
+</div>
+
+<!-- Page Header End -->
+
+
+<!-- Checkout Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-9">
+        <div class="col-lg-8">
+            <div class="mb-4">
+                {% if address%}
+                <h5 class="card-header">address</h5>
+                {% endif %}
+
+                <!-- <div class="card-body">
+                    <h5 class="card-title"></h5>
+                    {% for a in address %}
+                    {% if not a.id == default.default.id %}
+                    <h5 class="card-title"></h5>
+                    <p class="card-text">{{a.name}} </p>
+                    <p>{{a.house_name}}
+                        ,{{a.landmark}},{{a.pincode}},{{a.district}},{{a.state}},{{a.country}},{{a.phone_number}}</p>
+                    <a href="{% url 'address_delete' a.id %}" class="btn btn-primary">DELETE</a>
+                    <a href="{%url 'edit_address' a.id  %}" class="btn btn-primary">EDIT</a>
+                    {% if not a.default %}
+                    <a href="{% url 'default_address' a.id  %}" class="btn btn-primary">default </a>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor%} -->
+                    {% for a in address %}
+                    {% if not a.id == default.default.id %}
+                      <div class="row mb-3">
+                          <div class="col-lg-12 mb-3">
+                              <!-- Default checked radio -->
+                              <div class="form-check h-100 border rounded-3">
+                              <div class="p-3">
+                                 {% if not a.default %}
+                                <a href="{% url 'default_address' a.id  %}">
+                                   
+                                   
+                                  <input class="form-check-input" type="button" name="flexRadioDefault" id="flexRadioDefault1" checked />
+                                  
+                                </a>
+                                {% endif %}
+                              
+                                  <label class="form-check-label" for="flexRadioDefault1">
+                                      {{a.name}} <br />
+                                      <small class="text-muted"> {{a.house_name}} (Ho), {{a.landmark}},{{a.pincode}},{{a.district}},{{a.state}},{{a.country}},{{a.phone_number}} </small>
+                                  </label>
+                                  <br>
+                                  <a href="{% url 'address_delete' a.id %}" class="btn btn-primary">DELETE</a>
+                                  <a href="{%url 'edit_address' a.id  %}" class="btn btn-primary">EDIT</a>
+                                  <!-- {% if not a.default %}
+                                  <a href="{% url 'default_address' a.id  %}" class="btn btn-primary">default </a>
+                                  {% endif %} -->
+                              </div>
+                              </div>
+                          </div>
+                      </div>
+                      {% endif %}
+                      {% endfor %}
+
+                </div>
+                <a class="btn btn-outline-dark cap" href="{% url 'add_address' %}">Add new address</a></button>
+
+
+
+            </div>
+
+
+
+            <div class="col-lg-4">
+                <div class="card border-secondary mb-5">
+                    <table class="table table-bordered text-center mb-0">
+                        <thead class="bg-secondary text-dark" style="background-color: rgb(244, 204, 204)">
+                            <tr>
+                                <th>Products</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                            </tr>
+
+
+                        </thead>
+                        <tbody class="align-middle">
+                            <hr />
+                            {% for cart_item in cart_items %}
+                            <tr>
+
+                                <td class="align-middle"><img src="{{cart_item.product.image.url}}" alt="" style="width:100%;
+                                height: 10vh; object-fit:contain;"><a href="{{cart_item.product.get_url}}">
+                                        {{cart_item.product.title}}</a>
+                                    {% if cart_item.variant %}
+                                    <p class="text-muted small">
+                                        {{ cart_item.variant.variation }}
+                                    </p>
+                                    {% endif %}
+                                </td>
+                                <td class="align-middle">{{cart_item.product.price}}</td>
+                                <td class="align-middle">{{cart_item.quantity}}</td>
+                            </tr>
+                            {% endfor %}
+
+
+                        </tbody>
+
+                    </table>
+                    <hr />
+                    <span class="text-center">COUPON</span>
+                    <div class="d-flex justify-content-between mb-3 pt-1">
+
+                        <table class="table table-bordered text-center mb-0">
+                            <thead class=" text-dark">
+                                <tr>
+                                    <th>coupon code</th>
+                                    <th>discount price</th>
+                                    <th>minimum amount</th>
+                                </tr>
+
+
+                            </thead>
+                            <tbody class="align-middle">
+                                <hr />
+
+                                <tr>
+                                    <td class="align-middle">{{cart.coupon.coupon_code}}</td>
+
+                                    <td class="align-middle">{{cart.coupon.discount_price}}</td>
+                                    <td class="align-middle">{{cart.coupon.min_amount}}</td>
+                                </tr>
+
+
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 pt-1">
+                        <h6 class="font-weight-medium">Subtotal</h6>
+                        <h6 class="font-weight-medium">{{cart.get_cart_total}}</h6>
+                    </div>
+                    <hr />
+                    <div class="d-flex justify-content-between mb-3 pt-1">
+                        <h6 class="font-weight-medium">Grand total</h6>
+                        <h6 class="font-weight-medium">{{cart.get_grand_total}}</h6>
+                    </div>
+                    <hr />
+                    <div class="card-footer border-secondary bg-transparent">
+                        <button id="rzp-button1"
+                            class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place
+                            Order</button>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout End -->
+
+
+
+
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        var options = {
+            "key": "rzp_test_TSlWVcDRMB1X37", // Enter the Key ID generated from the Dashboard
+            "amount": "{{payment.amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "Timewrap",
+            "description": "Purchases",
+            "image": "{% static 'img/timewrap-high-resolution-color-logo.png' %}",
+            "order_id": "{{payment.id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response) {
+                window.location.href = `http://127.0.0.1:8000/order/success-page/?razorpay_payment_id=${response.razorpay_payment_id}&razorpay_order_id=${response.razorpay_order_id}&razorpay_signature=${response.razorpay_signature}`
+                // alert(response.razorpay_payment_id);
+                // alert(response.razorpay_order_id);
+                // alert(response.razorpay_signature) 
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        rzp1.on('payment.failed', function (response) {
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.order_id);
+            alert(response.error.metadata.payment_id);
+        });
+        document.getElementById('rzp-button1').onclick = function (e) {
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+
+
+
+    {% endblock content %}

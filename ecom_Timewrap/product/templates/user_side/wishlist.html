@@ -1,0 +1,59 @@
+{%extends 'index.html' %}
+
+{% load static%}
+
+
+
+{% block content %}
+
+  <div class="container">
+    {%if not wishlist_items %}
+    <h2 class="text-danger text-center">YOUR SHOPING WISHLIST IS EMPTY<h2>
+            <hr>
+            <br>
+            <div class="text-center">
+                <a href="{% url 'store' %}" class="btn btn-primary">continue shopping</a>
+            </div>
+            {% else%}
+
+    <div class="row">
+        <div class="col-md-12">
+            
+            <table class="table table-bordered table-hover table-sm">
+                <thead>
+                    <tr>
+                       
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for w in wishlist_items%}
+                    
+                    <tr>
+                     
+                        <td><img src="{{w.product.image.url}}" style="width:20w;
+                            height: 20vh; object-fit:contain;" alt="Product Image" class="img-thumbnail"><a href="{{w.product.get_url}}"> {{w.product.title}}</a></td>
+                        <td>{{w.product.price}}</td>
+                        <td >
+                            <a href="{% url 'remove_wishlistitem' w.product.id%}" type="submit" class="btn btn-danger m-3"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+
+                       {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Footer -->
+  
+
+
+
+
+
+{% endif %}
+{% endblock content %} 
+    

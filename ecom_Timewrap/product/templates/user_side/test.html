@@ -1,0 +1,76 @@
+def addtocart(request, product_id):
+    if request.user.is_authenticated:
+        current_user = request.user
+    else:
+        current_user = None
+
+    quantity = request.POST.get('quantity')
+    if quantity is None:
+        product_quantity = 1
+    else:
+        product_quantity= int(quantity)
+
+    product = get_object_or_404(Product, id=product_id)
+    varient_id = request.POST.get('varient_id')
+    if varient_id:
+        varient = ProductVarient.objects.get(id=varient_id)
+    else:
+        # If no variant ID was provided, get the first added variant for the product
+        varient = ProductVarient.objects.filter(proname=product).first()
+        print(varient)
+
+    if current_user:
+        item_exists = CartItem.objects.filter(user_id=current_user.id,product_id=product.id,provar_id=varient.id).exists()
+        if (item_exists):
+            item=CartItem.objects.get(product_id=product.id,user_id=current_user.id,provar_id=varient.id)
+            quantity_expected=item.quantity + product_quantity
+            if varient.varstock>quantity_expected:
+
+                item.quantity = item.quantity + product_quantity
+                item.save()
+                messages.success(request,  f"{product.name} are added to Cart.")
+            else:
+
+                item.quantity = varient.varstock
+                item.save()
+                messages.info(request,  f"{varient.varstock} items left. All of them are added to Cart.")
+        else:
+            if(varient.varstock>=product_quantity):
+                item = CartItem.objects.create(user_id=current_user.id, product_id=product.id,provar_id=varient.id,quantity=product_quantity)
+                messages.success(request, f"{product.name} added to cart!")
+            else:
+                product_quantity = varient.varstock
+                item = CartItem.objects.create(user_id=current_user.id, product_id=product.id,provar_id=varient.id,quantity=product_quantity)
+                messages.info(request,  f"{varient.varstock} items left. All of them are added to Cart.")
+    else:
+        cart = request.session.get('cart', {})
+        item_id = str(product_id)  # Use product ID only
+        if varient_id:
+            item_id += f"-{varient_id}"  # Add variant ID if it exists
+        else:
+            varient_id = varient.id
+            print('varient kitty')
+            print(varient_id)
+            item_id += f"-{varient_id}"  # Add variant ID if it exists
+        print('im in else of varient id')
+        print('addcart')
+        print(item_id)
+        if item_id in cart:
+            quantity_expected = cart[item_id]['quantity'] + product_quantity
+            if varient.varstock > quantity_expected:
+                cart[item_id]['quantity'] += product_quantity
+                messages.success(request, f"{product.name} added to cart!")
+            else:
+                cart[item_id]['quantity'] = varient.varstock
+                messages.info(request,  f"{varient.varstock} items left. All of them are added to Cart.")
+        else:
+            if varient.varstock >= product_quantity:
+                cart[item_id] = {'quantity': product_quantity, 'varient_id': varient_id}
+                messages.success(request, f"{product.name} added to cart!")
+            else:
+                product_quantity = varient.varstock
+                cart[item_id] = {'quantity': product_quantity, 'varient_id': varient_id}
+                messages.info(request,  f"{varient.varstock} items left. All of them are added to Cart.")
+        request.session['cart'] = cart
+
+    return redirect(viewcart)

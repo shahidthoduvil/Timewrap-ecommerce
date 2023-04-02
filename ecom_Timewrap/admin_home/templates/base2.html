@@ -1,0 +1,363 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>TIMEWRAP ADMIN </title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' rel=" icon" %}">
+  <link href="{% static 'assets/img/apple-touch-icon.png' rel=" apple-touch-icon"%}">
+
+  <!-- Google Fonts -->
+  <link href="{% static 'https://fonts.gstatic.com' rel=" preconnect"%}">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="/static/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+
+  <!--font Awesome-->
+
+  <link href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css " rel="stylesheet">
+  <!--filter table -->
+  <link rel="stylesheet" type="text/css" href="extensions/filter-control/bootstrap-table-filter-control.css">
+
+  <!--google font-->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+  <style>
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin-right: -15px;
+      margin-left: -15px;
+    }
+
+    .col-lg-3 {
+      flex: 0 0 25%;
+      max-width: 25%;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+
+    .col-lg-9 {
+      flex: 0 0 75%;
+      max-width: 75%;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+
+    .card {
+      margin-bottom: 30px;
+    }
+
+    .card-title {
+      margin-bottom: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .btn-primary {
+      background-color: #FF9900;
+      border-color: #FF9900;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    th {
+      text-align: left;
+    }
+
+    td,
+    th {
+      padding: 0.75rem;
+      vertical-align: top;
+    }
+
+    tbody tr:hover {
+      background-color: #f5f5f5;
+    }
+  </style>
+
+<body>
+
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center"  style="background-color:rgb(244,204,204)">
+    <div class="d-flex align-items-center justify-content-between">
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+      <a href="#" class="logo d-flex align-items-center ms-3">
+        <img src="{% static 'img/shoe.png' %}" alt="" />
+        <span class="ms-3">ADMINPANEL</span>
+      </a>
+
+    </div>
+    <!-- End Logo -->
+
+    <div class="" style="margin: 370px;">
+      <img src="{% static 'img/timewraplogi.png' %}" style="width: 90%" />
+    </div>
+    <!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle" href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li>
+        <!-- End Search Icon-->
+
+        <li class="nav-item dropdown pe-3">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <span class="d-none d-md-block dropdown-toggle ps-2">Timewrap admin</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>Timewrap </h6>
+              <span>ecommerce for watches</span>
+              <span>uae abu dhabi</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url 'admin_logout' %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>LogOut</span>
+              </a>
+            </li>
+          </ul>
+          <!-- End Profile Dropdown Items -->
+        </li>
+        <!-- End Profile Nav -->
+      </ul>
+    </nav>
+    <!-- End Icons Navigation -->
+  </header>
+  <!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar" style="background-color:rgb(244,204,204)">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'admin_home' %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <!-- End Dashboard Nav -->
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'user_list' %}">
+          <i style='font-size:24px' class='fas'>&#xf0c0;</i>
+          <span>users</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-layout-text-window-reverse"></i><span>products</span><i
+            class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'list_product' %}">
+              <i style='font-size:24px' class='fab'>&#xf288;</i><span>Product list</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'add_product' %}">
+              <i style='font-size:24px' class='far'>&#xf24d;</i> <span>Add product</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'material' %}">
+              <i style='font-size:24px' class='far'>&#xf24d;</i> <span>material</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'brand' %}">
+              <i style='font-size:24px' class='far'>&#xf24d;</i> <span>brand</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'color' %}">
+              <i style='font-size:24px' class='far'>&#xf24d;</i> <span>Color</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'color_variant' %}">
+              <i style='font-size:24px' class='far'>&#xf24d;</i> <span>color variant</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="">
+          <i class="bi bi-menu-button-wide"></i><span>categories</span><i class="bi bi-chevron-down ms-auto"></i>
+
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'category' %}">
+              <i style='font-size:24px' class='far'>&#xf24d;</i><span>category</span>
+            </a>
+          </li>
+
+        </ul>
+
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>orders</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'orderlist' %}">
+              <i style='font-size:24px' class='fab'>&#xf288;</i><span>Order list</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'banner' %}">
+          <span>banner</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'coupon' %}">
+          <span>coupon</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'review_management' %}">
+          <span>Review</span>
+        </a>
+      </li>
+
+
+
+      <li class="nav-item">
+        <a class="nav-link " href="{% url 'admin_logout' %}">
+
+          <span>logout</span>
+        </a>
+      </li>
+    </ul>
+
+
+  </aside><!-- End Sidebar-->
+
+  {% block content %}
+
+
+  {% endblock content %}
+
+  <!-- End #main -->
+
+
+  {% comment %} <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a> {% endcomment %}
+
+  <!-- Vendor JS Files -->
+  <script src="https://kit.fontawesome.com/ca6b256fcb.js" crossorigin="anonymous"></script>
+        <script src="{% static 'assets/vendor/apexcharts/apexcharts.min.js' %}"></script>
+        <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'assets/vendor/chart.js/chart.umd.js' %}"></script>
+        <script src="{% static 'assets/vendor/echarts/echarts.min.js' %}"></script>
+        <script src="{% static 'assets/vendor/quill/quill.min.js' %}"></script>
+        <script src="{% static 'assets/vendor/simple-datatables/simple-datatables.js' %}"></script>
+        <script src="{% static 'assets/vendor/tinymce/tinymce.min.js' %}"></script>
+        <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.js"> </script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"> </script>
+        <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons"></script>
+        <script src="{% static 'assets/js/main.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"> </script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"> </script>
+        <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons"></script>
+        <!--fitler table-->
+        <script src="extensions/filter-control/bootstrap-table-filter-control.js"></script>
+
+
+        <script>
+          $(document).ready(function () {
+            $('#example').DataTable({
+              dom: 'Bfrtip',
+              buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+              ]
+            });
+          });
+        </script>
+
+        v
+        <script>
+          $(document).ready(function () {
+            {% for m in messages %}
+
+            swal("Success", "Your review have been submitted");
+
+            {% endfor %}
+
+          })
+        </script>
+
+
+
+
+
+</body>
+
+
+</html>
