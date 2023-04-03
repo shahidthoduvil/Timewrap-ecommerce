@@ -394,11 +394,8 @@ def brand_edit(request, id):
         band_name = request.POST['b_name']
         slug = request.POST['slug']
         
-        if not band_image or band_image.isspace():
-            messages.error(request, "Brand image cannot be empty or contain only spaces.")
-            return redirect(brand)
-    
-        if not band_image or band_name.isspace():
+       
+        if not band_name or band_name.isspace():
             messages.error(request, "Brand name cannot be empty or contain only spaces.")
             return redirect(brand)
 
@@ -411,10 +408,7 @@ def brand_edit(request, id):
     
 
          
-        if not band_name or band_name.isspace():
-            messages.error(request, "Brand name cannot be empty or contain only spaces.")
-            return redirect(brand)
-    
+
         band_update.brand_image = band_image
         band_update.save()
        
@@ -430,19 +424,19 @@ def brand_edit(request, id):
 
 @user_passes_test(superadmin_check)
 def brand_add(request):
-    band_image=None
+    band_name=None
     band_name = request.POST['b_name']
 
-    if not band_image or band_image.isspace():
-            messages.error(request, "Brand image cannot be empty or contain only spaces.")
-            return redirect(brand)
-    
-    if not band_image or band_name.isspace():
+     
+       
+    if not band_name or band_name.isspace():
             messages.error(request, "Brand name cannot be empty or contain only spaces.")
             return redirect(brand)
+    
+
     try:
         band_image = request.FILES['b_image']
-    except:
+    except KeyError:
       band_image=None
 
     slug = request.POST['slug']
@@ -489,7 +483,7 @@ def banner_add(request):
        bann_image = request.FILES['b_image']
     except:
         pass
-    if not bann_name or bann_name.isspace() and bann_description or bann_description.isspace() and bann_image or bann_image.isspace():
+    if not bann_name or bann_name.isspace() and bann_description or bann_description.isspace():
             messages.error(request, "Brand  cannot be empty or contain only spaces.")
             return redirect(banner)
     

@@ -81,18 +81,54 @@ class AddressForm(forms.ModelForm):
 
         fields = ['house_name', 'landmark','city',  'pincode', 'district', 'state','country','name','phone_number','email_2']
 
-    def clean_pincode(self):
-        pincode = self.cleaned_data['pincode']
-        if pincode < 0:
-            raise ValidationError("Pincode must be a positive number")
-        return pincode
 
-    def clean_phone_number(self):
-        phone_number = self.cleaned_data['phone_number']
-        if not str(phone_number).isdigit():
-            raise ValidationError("Phone number must contain only digits")
-        return phone_number
-    
+        def clean_pincode(self):
+            pincode = self.cleaned_data['pincode']
+            if pincode < 0:
+                raise ValidationError("Pincode must be a positive number")
+            return pincode
+
+        def clean_phone_number(self):
+            phone_number = self.cleaned_data['phone_number']
+            if not str(phone_number).isdigit():
+                raise ValidationError("Phone number must contain only digits")
+            return phone_number
+        
+        def clean_house_name(self):
+            house_name = self.cleaned_data['house_name']
+            if not house_name:
+                raise forms.ValidationError('House name is required.')
+            return house_name
+
+        def clean_phone_number(self):
+            phone_number = self.cleaned_data['phone_number']
+            if not phone_number:
+                raise forms.ValidationError('Phone number is required.')
+            elif not str(phone_number).isdigit():
+                raise forms.ValidationError('Phone number must contain only digits.')
+            return phone_number
+
+        def clean_city(self):
+            city = self.cleaned_data['city']
+            if not city:
+                raise forms.ValidationError('City is required.')
+            return city
+
+        def clean_district(self):
+            district = self.cleaned_data['district']
+            if not district:
+                raise forms.ValidationError('District is required.')
+            return district
+
+        def clean_country(self):
+            country = self.cleaned_data['country']
+            if not country:
+                raise forms.ValidationError('Country is required.')
+            return country
+
+
+
+  
 
    
     
@@ -121,8 +157,10 @@ class AddressForm(forms.ModelForm):
         self.fields['country'].widget.attrs['placeholder'] = 'Enter Your Country'
         
         self.fields['phone_number'].widget.attrs['placeholder'] = 'Enter Your phone number'
+
         
-       
+
+        
         
 
         for field in self.fields:

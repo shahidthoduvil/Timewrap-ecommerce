@@ -15,7 +15,7 @@ from django.conf import settings
 from .form import RegistrationForm
 from .models import Account,Address
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect,HttpResponseBadRequest
+from django.http import HttpResponseRedirect,HttpResponseBadRequest,HttpResponse
 from product.models import Cart,CartItem
 from home.views import home
 from django.urls import reverse
@@ -308,7 +308,9 @@ def add_address(request,num=0):
 
             address.user = request.user
 
-            address.save()
+            address.save() 
+            
+
 
             number = int(request.GET.get('num'))
         try:
@@ -320,7 +322,7 @@ def add_address(request,num=0):
                 return HttpResponseRedirect(reverse("checkout"))
         except:
               pass
-        
+        return HttpResponse('Success')
 
     else:
 
