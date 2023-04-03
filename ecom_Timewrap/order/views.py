@@ -127,7 +127,6 @@ def refund(request):
 
 def cancel_order(request, item_id=None, order_id=None):
 
- 
 
 
         client = razorpay.Client(auth=(settings.KEY, settings.SECRET))
@@ -138,7 +137,7 @@ def cancel_order(request, item_id=None, order_id=None):
 
         item = OrderItem.objects.get(order=order, id=item_id)
 
-        item_amount = item.item_total * 100
+        item_amount = item.item_total 
 
  
         

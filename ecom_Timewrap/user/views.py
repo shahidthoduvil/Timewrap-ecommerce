@@ -15,9 +15,10 @@ from django.conf import settings
 from .form import RegistrationForm
 from .models import Account,Address
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect,HttpResponseBadRequest
 from product.models import Cart,CartItem
 from home.views import home
+from django.urls import reverse
 
 from .form import AddressForm
 
@@ -290,13 +291,14 @@ def address_view(request):
         return render(request,"user_side/user_dashboard/address.html",context)
 
 
-def add_address(request):
+def add_address(request,num=0):
 
 
     address = Address.objects.filter(user=request.user)
     if request.method == 'POST':
 
         print(address)
+        
         
         form = AddressForm(request.POST)
 
@@ -308,14 +310,24 @@ def add_address(request):
 
             address.save()
 
-            return redirect(address_view)
+            number = int(request.GET.get('num'))
+        try:
+          
+        
+            if number == 1:
+                return HttpResponseRedirect(reverse("address_view"))
+            elif number == 2:
+                return HttpResponseRedirect(reverse("checkout"))
+        except:
+              pass
+        
+
     else:
 
         form = AddressForm()
-   
+        
+        return render(request,"user_side/user_dashboard/add_address.html",{'form':form,'num':num})
 
- 
-    return render(request,"user_side/user_dashboard/add_address.html",{'form':form})
 
 
 def edit_address(request, id):
@@ -329,7 +341,8 @@ def edit_address(request, id):
 
             form.save()
 
-            return redirect(address_view)
+
+        
     else:
          form = AddressForm(instance=address)
             

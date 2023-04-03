@@ -8,11 +8,11 @@
 
   <div class="container">
     {%if not wishlist_items %}
-    <h2 class="text-danger text-center">YOUR SHOPING WISHLIST IS EMPTY<h2>
+    <h2 class="text-dark text-center">YOUR SHOPING WISHLIST IS EMPTY<h2>
             <hr>
             <br>
             <div class="text-center">
-                <a href="{% url 'store' %}" class="btn btn-primary">continue shopping</a>
+                <a href="{% url 'store' %}" class="btn btn"><img src="{% static 'img/wishlist2.png' %}"><BR>SHOP</a>
             </div>
             {% else%}
 

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Account
+from django.core.exceptions import ValidationError
 
 
 
@@ -79,6 +80,23 @@ class AddressForm(forms.ModelForm):
         model = Address
 
         fields = ['house_name', 'landmark','city',  'pincode', 'district', 'state','country','name','phone_number','email_2']
+
+    def clean_pincode(self):
+        pincode = self.cleaned_data['pincode']
+        if pincode < 0:
+            raise ValidationError("Pincode must be a positive number")
+        return pincode
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data['phone_number']
+        if not str(phone_number).isdigit():
+            raise ValidationError("Phone number must contain only digits")
+        return phone_number
+    
+
+   
+    
+  
     
     def _init_(self, *args, **kwargs):
 

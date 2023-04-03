@@ -28,7 +28,7 @@
                             <th scope="col">Product</th>
                             <th scope="col"></th>
                             <th scope="col">User</th>
-                            <th scope="col">Title</th>
+                  
                             <th scope="col">Review</th>
                             <th scope="col">Rating</th>
                             <th scope="col">Delete</th>
@@ -38,13 +38,13 @@
 
                         {% for r in reviews %} 
                         <tr>
-                            <th scope="row">{{forloop.counter}}</th>
-                            <th scope="row">
+                            <td scope="row">{{forloop.counter}}</td>
+                            <td scope="row">
                                 <img src="{{r.product.image.url}}" style="width:70px;" alt=..>
-                            </th>
+                            </td>
                             <td>{{r.product}}</td>
-                            <td>{{r.user.id}}</td>
-                            <td>{{r.title}}</td>
+                            <td>{{r.user.username}}</td>
+                          
                             <td>{{r.review}}</td>
                             <td>{{r.rating}}/5.0</td>
 

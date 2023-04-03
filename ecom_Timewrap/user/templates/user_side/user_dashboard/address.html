@@ -21,9 +21,9 @@
         
         </div>
         <div class="card-footer text-muted">
-          <a href="{% url 'edit_address' a.id %}" class="btn btn-outline-dark bg-warining">ADDRESS EDIT</a>
+          <a href="{% url 'edit_address' a.id   %}" class="btn btn-outline-dark bg-warining">ADDRESS EDIT</a>
 
-          <a href="{% url 'address_delete' a.id %}" class="btn btn-outline-dark bg-warining">ADDRESS DELETE</a>
+          <a href="{% url 'address_delete' a.id   %}" class="btn btn-outline-dark bg-warining">ADDRESS DELETE</a>
         </div>
       </div>
     </div>
@@ -31,7 +31,7 @@
     <div class="col-sm-6">
       <div class="card" style="width: 18rem;">
         <div class="card-body">
-          <a href="{% url 'add_address' %}" class="btn btn-outline-dark bg-warining">ADD ADDRESS</a>
+          <a href="{% url 'add_address' 1 %}" class="btn btn-outline-dark bg-warining">ADD ADDRESS</a>
         </div>
       </div>
   </div>

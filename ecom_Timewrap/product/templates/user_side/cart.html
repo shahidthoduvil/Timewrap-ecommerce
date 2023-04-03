@@ -9,11 +9,11 @@
 
 <div class="container-fluid pt-5">
     {%if not cart_items %}
-    <h2 class="text-danger text-center">YOUR SHOPING CART IS EMPTY<h2>
+    <h2 class="text-dark text-center">YOUR SHOPING CART IS EMPTY<h2>
             <hr>
             <br>
             <div class="text-center">
-                <a href="{% url 'store' %}" class="btn btn-primary">continue shopping</a>
+                <a href="{% url 'store' %}" class="btn btn"><img src="{% static 'img/cart2.webp' %}" > <BR>SHOP THE CART</a>
             </div>
             {% else%}
 

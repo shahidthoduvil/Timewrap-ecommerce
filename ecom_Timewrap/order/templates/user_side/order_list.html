@@ -164,6 +164,15 @@
 {% block content %}
 
 <div class="container m-t-120 mb-5">
+    {%if not orders %}
+    <h2 class="text-dark text-center">YOUR ORDER LIST IS EMPTY<h2>
+            <hr>
+            <br>
+            <div class="text-center">
+                <a href="{% url 'store' %}" class="btn btn"><img src="{% static 'img/order.jpg' %}" style="width:100%;
+                    height: 60vh; object-fit:contain;" ><span>ORDER NOW</span></a>
+            </div>
+            {% else%}
 
     <div class="row mt-3 justify-content-center">
 
@@ -224,5 +233,5 @@
     </div>
 </div>
 
-
+{% endif %}
 {% endblock %}
