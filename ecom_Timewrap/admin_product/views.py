@@ -393,17 +393,19 @@ def brand_edit(request, id):
             return redirect(brand)
 
     
-        band_update = Brand.objects.get(id=id)
         try:
+            
+            band_update = Brand.objects.get(id=id)
             band_image = request.FILES['b_image']
+            
+            band_update.brand_image = band_image
+            band_update.save()
         except:
              band_image=None
     
 
          
 
-        band_update.brand_image = band_image
-        band_update.save()
        
     
         band_update = Brand.objects.filter(id=id)
@@ -493,13 +495,15 @@ def banner_edit(request, id):
             messages.error(request, "Brand  cannot be empty or contain only spaces.")
             return redirect(banner)
 
-        image_update = Banner.objects.get(id=id)
-        bann_image = request.FILES['b_image']
+        
         try:
+           image_update = Banner.objects.get(id=id)
+           bann_image = request.FILES['b_image']
            image_update.image = bann_image
+           image_update.save()
         except:
            pass
-        image_update.save()
+      
 
         bann_update = Banner.objects.filter(id=id)
         bann_update.update(heading=bann_name, description=bann_description)
