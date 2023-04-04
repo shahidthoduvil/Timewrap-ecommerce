@@ -1,6 +1,10 @@
 from django.shortcuts import render,redirect
 from product.models import Category
 from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
+from django.views.decorators.cache import never_cache
+
+
 
 # Create your views here.
 
@@ -9,6 +13,7 @@ def category(request):
         'catg': Category.objects.all(),
     }
     return render(request,"admin_side/categories.html",category_dict)
+
 
 def category_edit(request,id):
 
@@ -24,7 +29,6 @@ def category_edit(request,id):
     cat_update.update(category_name=cat_name,slug=slug)
 
     return redirect(category)
-
 
 
 def category_add(request):

@@ -7,13 +7,14 @@ from django.contrib import messages
 from django.http import HttpResponse,HttpResponseBadRequest
 from django.contrib.auth.decorators import user_passes_test
 
+
 # Create your views here.
 
 def superadmin_check(user):
     if user.is_authenticated:
         return user.is_superadmin
 
-@user_passes_test(superadmin_check)
+
 def list_product(request):
 
     product_dict = {
@@ -30,7 +31,7 @@ def list_product(request):
     return render(request, 'admin_side/list_product.html', product_dict)
 
 
-@user_passes_test(superadmin_check)
+
 def product_edit(request, id):
 
 
@@ -124,8 +125,6 @@ def product_edit(request, id):
 
     return render(request, "admin_side/list_product.html")
 
-
-@user_passes_test(superadmin_check)
 def add_product(request):
    
     product_dict = {
@@ -255,7 +254,7 @@ def add_product(request):
     return render(request, 'admin_side/add_product.html', product_dict)
 
 
-@user_passes_test(superadmin_check)
+
 def product_delete(request, id):
     del_pro = Product.objects.filter(id=id)
     del_pro.delete()
@@ -263,7 +262,7 @@ def product_delete(request, id):
     return redirect(list_product)
 
 
-@user_passes_test(superadmin_check)
+
 def material(request):
     mater_edit = {
 
@@ -295,7 +294,7 @@ def material_edit(request, id):
     # material add
 
 
-@user_passes_test(superadmin_check)
+
 def material_add(request):
     mat_name = request.POST['m_name']
     slug = request.POST['slug']
@@ -321,14 +320,12 @@ def material_add(request):
 # material delete
 
 
-@user_passes_test(superadmin_check)
 def material_delete(request, id):
     del_mat = Material.objects.filter(id=id)
     del_mat.delete()
     return redirect(material)
 
 
-@user_passes_test(superadmin_check)
 def color(request):
     color_dict = {
         'colr': Color.objects.all()
@@ -340,7 +337,6 @@ def color(request):
 # color_edit
 
 
-@user_passes_test(superadmin_check)
 def color_edit(request, id):
     colr_name = request.POST['col_name']
     slug = request.POST['slug']
@@ -354,8 +350,6 @@ def color_edit(request, id):
 
 # color_add
 
-
-@user_passes_test(superadmin_check)
 def color_add(request):
     c_name = request.POST['c_name']
     slug = request.POST['slug']
@@ -370,7 +364,7 @@ def color_add(request):
 
 # color_delete
 
-@user_passes_test(superadmin_check)
+
 def color_delete(request, id):
     colr_del = Color.objects.filter(id=id)
     colr_del.delete()
@@ -385,7 +379,6 @@ def brand(request):
     return render(request, "admin_side/brand.html", brand_dict)
 
 
-@user_passes_test(superadmin_check)
 def brand_edit(request, id):
     band_image=None
   
@@ -422,7 +415,6 @@ def brand_edit(request, id):
 # brand add
 
 
-@user_passes_test(superadmin_check)
 def brand_add(request):
     band_name=None
     band_name = request.POST['b_name']
@@ -449,15 +441,11 @@ def brand_add(request):
 
 # brand delete
 
-
-@user_passes_test(superadmin_check)
 def brand_delete(request, id):
     del_band = Brand.objects.filter(id=id)
     del_band.delete()
     return redirect(brand)
 
-
-@user_passes_test(superadmin_check)
 def banner(request):
     banner = Banner.objects.all()
     context = {
@@ -467,14 +455,13 @@ def banner(request):
     return render(request, "admin_side/banner.html", context)
 
 
-@user_passes_test(superadmin_check)
+
 def banner_delete(request, id):
     del_ban = Banner.objects.filter(id=id)
     del_ban.delete()
     return redirect(banner)
 
 
-@user_passes_test(superadmin_check)
 def banner_add(request):
     bann_image=''
     bann_name = request.POST['b_name']
@@ -495,7 +482,6 @@ def banner_add(request):
     return redirect(banner)
 
 
-@user_passes_test(superadmin_check)
 def banner_edit(request, id):
     bann_image=''
     if request.method == 'POST':
@@ -524,7 +510,6 @@ def banner_edit(request, id):
 
 
 
-@user_passes_test(superadmin_check)
 def color_variant(request):
     product=Product.objects.all()
     varaint=Variation.objects.all()
@@ -536,7 +521,6 @@ def color_variant(request):
         }
     return render(request,"admin_side/color_variant.html",context)
 
-@user_passes_test(superadmin_check)
 def varaint_add(request):
     if request.method=='POST':
         color=request.POST['color']
@@ -555,7 +539,7 @@ def varaint_add(request):
 
 from django.http import Http404
 
-@user_passes_test(superadmin_check)
+
 def variant_edit(request,id):
 
     if request.method=='POST':
@@ -574,7 +558,6 @@ def variant_edit(request,id):
         return render(request, "admin_side/color_variant.html")
 
 
-@user_passes_test(superadmin_check)
 def varaint_delete(request,id):
     del_var= Variation.objects.filter(id=id)
     del_var.delete()

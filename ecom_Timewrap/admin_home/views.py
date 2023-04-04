@@ -18,6 +18,7 @@ from order.models import Payment
 import matplotlib.pyplot as plt
 from django.http import HttpResponse
 from io import BytesIO
+from django.views.decorators.cache import cache_control
 
 
 
@@ -99,57 +100,13 @@ def admin_login(request):
 
 def admin_logout(request):
     auth.logout(request)
+    if 'username' in request.session:
+        request.session.flush()
+
     return redirect(admin_login)
 
 
 
 
-
-
-def my_bar_chart_view(request):
-    
-
-    products_1000 = Product.objects.filter(price__range=(1, 999))
-    count = 0
-    for product in products_1000:
-        count+=1
-
-    products_1000_2000 = Product.objects.filter(price__range=(1000, 1999))
-    count1 = 0
-    for product in products_1000_2000:
-        count1+=1
-
-    products_2000_3000 = Product.objects.filter(price__range=(2000, 2999))
-    count2 = 0
-    for product in products_2000_3000:
-        count2+=1
-
-    products_3000_4000 = Product.objects.filter(price__range=(3000, 4000))
-    count3 = 0
-    for product in products_3000_4000:
-        count3+=1
-
-
-
-    x_values = ['1000', '2000', '3000', '4000']
-    y_values = [count, count1, count2, count3]
-
-    # Create bar chart
-    plt.bar(x_values, y_values)
-
-    # Set title and labels for x and y axis
-    plt.title("Bar Chart")
-    plt.xlabel("Price")
-    plt.ylabel("Number of Products")
-
-    # Save the chart as a PNG file
-    buffer = BytesIO()
-    plt.savefig(buffer, format='png')
-    buffer.seek(0)
-
-    # Serve the file as a HTTP response
-    response = HttpResponse(buffer, content_type='image/png')
-    response['Content-Disposition'] = 'attachment; filename="my_bar_chart.png"'
-    return response
 
 
