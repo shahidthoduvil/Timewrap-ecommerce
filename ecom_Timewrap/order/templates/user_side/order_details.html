@@ -230,11 +230,11 @@
                                             <a class="btn btn-sm btn-outline-dark rounded-pill py-2"
                                                 href="{% url 'order_tracking' item.id %}">Track Order</a>
 
-                                                {% comment %} {% if item.order_status == 'Cancelled' or item.order_status == 'Refunded' %}
+                                                {% if item.order_status == 'Cancelled' or item.order_status == 'Refunded' %}
                                                 <a  href="" class="btn btn-sm btn-secondary text-light rounded-pill py-2">refunded</a>
-                                                {% else %} {% endcomment %}
+                                                {% else %} 
                                                 <a  href="{% url 'cancel_order' item.id item.order.order_id %}" class="btn btn-sm btn-dark rounded-pill">Cancel Order<i class="fa-solid fa-ban m-l-5"></i></a>
-                                                {% comment %} {% endif %} {% endcomment %}
+                                                {% endif %} 
                                         </div>
                                         <p class="mb-0 text-black text-danger pt-2"><span
                                                 class="text-black font-weight-bold"> Total Paid:</span> ₹{{ item.item_total }}.00
