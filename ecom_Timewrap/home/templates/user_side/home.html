@@ -9,7 +9,7 @@
 <div id="header-carousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
         {% for b in banner %}
-        <div class="carousel-item {% if b.id == 1%}active{% endif %}" style="height: 410px;">
+        <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}" style="height: 410px;">
             <img class="img-fluid" src="{{ b.image.url }}" alt="Image">
             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                 <div class="p-3" style="max-width: 700px;">
