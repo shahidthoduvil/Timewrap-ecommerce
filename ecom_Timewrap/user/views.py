@@ -46,21 +46,21 @@ def sign_up(request):
                 user.save()
                 #user activation
 
-                current_site=get_current_site(request)
+                current_site = get_current_site(request)
                 mail_subject = 'Please activate your account'
-                message = render_to_string('user_side/account_verification.html',{
-                'user' : user,
-                'domain' : current_site,
-                'uid' : urlsafe_base64_encode(force_bytes(user.pk)),
-                'token' : default_token_generator.make_token(user),
-                })
+                message = render_to_string('user_side/account_verification.html', {
+                'user': user,
+                'domain': current_site,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': default_token_generator.make_token(user),
+                 })
                 to_email = email
                 send_email = EmailMessage(mail_subject, message, to=[to_email])
-                send_email.send()
+                send_email.send()       
                 messages.success(request,'Thank you for registring with us,we have sent you a verification email to your email address.please verify it. ')
                 
                 return redirect('login')
-                                 #  /?command=verfication&email='+email
+                               
                 
         else:
              
@@ -124,10 +124,10 @@ def otp_email(request):
             try:
                 usr = Account.objects.get(email=get_usr)
             except Account.DoesNotExist:
-                messages.warning(request, f'Account with email {get_usr} does not exist.')
+                messages.warning(request,f'Account with email{get_usr} does not exist.')
                 return render(request, 'user_side/otp_email.html')
             otp_db = UserOTP.objects.filter(user=usr).last()
-            print('++++++++',otp_db.otp)
+         
             if int(get_otp) == otp_db.otp:
 
                 usr.is_active = True
