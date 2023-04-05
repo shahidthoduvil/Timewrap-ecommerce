@@ -358,8 +358,11 @@ def edit_address(request, id):
 
 
 def address_delete(request,id):
+    try:
 
-    Address.objects.get(id=id).delete()
+        Address.objects.get(id=id).delete()
+    except:
+        pass
 
     return redirect(address_view)
 

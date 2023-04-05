@@ -6,6 +6,9 @@
 
 {% block content %}
 
+
+
+
 <div class="container-fluid bg-secondary mb-5">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
         <h1 class="font-weight-semi-bold text-uppercase mb-3">checkout</h1>
@@ -44,26 +47,21 @@
                     {% endif %}
                     {% endif %}
                     {% endfor%} -->
+                    
                     {% for a in address %}
-                    {% if not a.id == default.default.id %}
                       <div class="row mb-3">
                           <div class="col-lg-12 mb-3">
                               <!-- Default checked radio -->
                               <div class="form-check h-100 border rounded-3">
                               <div class="p-3">
-                                 {% if not a.default %}
-                                <a href="{% url 'default_address' a.id  %}">
-                                   
-                                   
-                                  <input class="form-check-input" type="button" name="flexRadioDefault" id="flexRadioDefault1" checked />
-                                  
-                                </a>
-                                {% endif %}
-                              
-                                  <label class="form-check-label" for="flexRadioDefault1">
-                                      {{a.name}} <br />
-                                      <small class="text-muted"> {{a.house_name}} (Ho), {{a.landmark}},{{a.pincode}},{{a.district}},{{a.state}},{{a.country}},{{a.phone_number}} </small>
-                                  </label>
+                                <form action="{% url 'default_address' a.id  %}">
+                                  <input onclick="submit()" class="form-check-input" type="radio" name="address" id="{{a.name}}" {% if a.default %}checked{% endif %} />
+                                  <label class="form-check-label" for="{{a.name}}">
+                                    {{a.name}} <br />
+                                    <small class="text-muted"> {{a.house_name}} (Ho), {{a.landmark}},{{a.pincode}},{{a.district}},{{a.state}},{{a.country}},{{a.phone_number}} </small>
+                                </label>
+                                </form>
+
                                   <br>
                                   <a href="{% url 'address_delete' a.id %}" class="btn btn-primary">DELETE</a>
                                   <a href="{%url 'edit_address' a.id  %}" class="btn btn-primary">EDIT</a>
@@ -74,7 +72,6 @@
                               </div>
                           </div>
                       </div>
-                      {% endif %}
                       {% endfor %}
 
                 </div>
@@ -209,8 +206,23 @@
             alert(response.error.metadata.payment_id);
         });
         document.getElementById('rzp-button1').onclick = function (e) {
-            rzp1.open();
             e.preventDefault();
+
+            try{
+                const checkedInput = document.querySelector('input[name="address"]:checked');
+                if (!checkedInput) {
+                    const inputValue = checkedInput.value;
+                    console.log(inputValue);alert('Select Your Address')
+                    return;
+                    }
+            }
+            catch{
+                alert('Select address first')
+                return;
+            }
+
+            rzp1.open();
+
         }
     </script>
 

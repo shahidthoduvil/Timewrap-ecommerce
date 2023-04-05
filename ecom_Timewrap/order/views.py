@@ -42,7 +42,7 @@ def success_page(request):
             delivery_address = Address.objects.get(user=request.user,default=True)
         except Address.DoesNotExist:
             messages.error(request,"select an address")
-            return redirect('add_address')
+            return redirect('checkout')
 
         order = Order.objects.create(
             order_id=order_id, user=user, delivery_address=delivery_address, payment=payment)

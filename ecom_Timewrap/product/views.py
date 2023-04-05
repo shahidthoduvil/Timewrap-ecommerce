@@ -427,7 +427,6 @@ def remove_coupon(request):
 def default_address(request,id):
     Address.objects.filter(user=request.user,default=True).update(default=False)
     Address.objects.filter(id=id,user=request.user).update(default=True)
-
     return redirect(checkout)
 
 
