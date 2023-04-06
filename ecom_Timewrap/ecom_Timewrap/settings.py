@@ -81,6 +81,7 @@ TEMPLATES = [
                 'product.views.material',
                 'product.views.color',
                 'admin_home.context_processor.revenue',
+                'product.context_processor.counter',
                 
             ],
         },

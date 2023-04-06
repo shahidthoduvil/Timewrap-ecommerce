@@ -53,6 +53,18 @@
                 {% else %}
                 <h3 class="font-weight-semi-bold mb-4">{{single_product.price}}</h3>
                 {% endif %}
+                
+                <div>
+
+                <span class="fa fa-star checked" style="color:orange"></span>
+                <span class="fa fa-star checked" style="color:orange"></span>
+                <span class="fa fa-star checked" style="color:orange"></span>
+                <span class="fa fa-star checked" style="color:orange"></span>
+                <span class="fa fa-star checked" style="color:orange">   (  {{  review_count }}  )  </span> reviews
+          
+                </div>
+                
+
                 <p class="mb-4">{{single_product.description}}</p>
                 <hr>
                 <br>

@@ -201,6 +201,7 @@ def product_info(request,product_slug):
         single_product=Product.objects.get(slug=product_slug)
         variants = Variation.objects.filter(product=single_product)
         review=ReviewRating.objects.filter(product=single_product)
+        review_count=ReviewRating.objects.filter(product=single_product).count()
 
         mult=MultipleImg.objects.filter(product = single_product)
         products=Product.objects.filter(is_available=True).order_by('id')
@@ -213,6 +214,7 @@ def product_info(request,product_slug):
              'products':products,
              'variants': variants,
              'review':review,
+             'review_count':review_count
     }
     if request.GET.get('variant'):
             color = request.GET.get('variant')
