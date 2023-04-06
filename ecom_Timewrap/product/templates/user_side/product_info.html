@@ -193,7 +193,6 @@
                                                 {% endif %}
                                                 <!-- Add review -->
                                                 {% if user.is_authenticated %}
-
                                                 <form action="{% url 'submit_review' single_product.id %}" method="POST"
                                                     class="w-full">
                                                     {% csrf_token %}
@@ -256,7 +255,7 @@
 
 
                                                     {% else %}
-                                                    <h6>Please login to submit your review.<a href="login">Login here<a>
+                                                    <h6>Please login to submit your review.<a href="{%  url 'login' %}">Login here<a>
                                                                 {% endif %}
                                                 </form>
 

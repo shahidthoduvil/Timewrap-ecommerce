@@ -15,10 +15,9 @@
             <div class="card border border-dark">
                 <div class="text-center logo-q1 p-2 px-5">
                     <img src="{% static 'img/timewraplogi.png' %}" width="250">
-
                 </div>
 
-                <div class="invoice p-5">
+                <div class="invoice p-2">
            
 
                     <div class="payment mt-3 mb-3 border-bottom table-responsive">
@@ -27,8 +26,9 @@
 
                             <tbody>
                                 <tr>
+                                
                                     <td>
-                                        <div class="py-2">
+                                        <div class="py-1">
 
                                             <span class="d-block text-muted">Order Date</span>
                                             <span>{{order.ordered_date}}</span>
@@ -37,7 +37,7 @@
                                     </td>
 
                                     <td>
-                                        <div class="py-2">
+                                        <div class="py-1">
 
                                             <span class="d-block text-muted">Order No</span>
                                             <span>{{order.order_id}}</span>
@@ -46,7 +46,7 @@
                                     </td>
 
                                     <td class="text-center">
-                                        <div class="py-2">
+                                        <div class="py-1">
 
                                             <span class="d-block text-muted">Payment</span>
                                             <span><img
@@ -57,7 +57,7 @@
                                     </td>
 
                                     <td>
-                                        <div class="py-2">
+                                        <div class="py-1">
 
                                             <span class="d-block text-muted">Shiping Address</span>
                                             <span>{{order.delivery_address.house_name}}(H),<br>{{order.delivery_address.city}},
@@ -81,12 +81,13 @@
 
                     <div class="product border-bottom table-responsive">
 
-                        <table class="table table-borderless">
+                        <table class="table table-bordered ">
                             <thead>
 
                                 <tr>
+                                    
                                     <th scope="col">Product</th>
-                                    <th scope="col"></th>
+                                    <th scope=""></th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Subtotal</th>
@@ -102,15 +103,15 @@
                                     </td>
 
                                     <td width="40%">
-                                        <span class="font-weight-bold">{{item.product.price}}</span>
+                                        <span class="font-weight-bold text-danger" >{{item.product.price}}</span>
 
                                         <div class="product-qty">
 
                                             {% if item.variant %}
-                                            <span class="text-secondary">({{item.variant}})</span>
+                                            <span class="text-secondary text-dark">({{item.variant}})</span>
                                             {% endif %}
 
-                                            <span class="d-block text-secondary">Quantity:{{item.quantity}}</span>
+                                            <span class="d-block text-secondary text-dark">Quantity:{{item.quantity}}</span>
                                         </div>
 
                                     </td>
@@ -235,7 +236,7 @@
 
                 <div class="d-flex justify-content-between footer p-3">
 
-                    <span>Need Help? visit our <a href="#"> help center</a></span>
+                    <span class="">Need Help? visit our <a href="#"> help center</a></span>
                     <span>{% now "d, M Y" %}</span>
 
                 </div>
