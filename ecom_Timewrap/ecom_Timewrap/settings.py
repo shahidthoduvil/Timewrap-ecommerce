@@ -15,6 +15,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv()
 
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hw--xhu-6+irfgr87)+5p=d@w*mdxv*8$!j(n)n+vd_@m_f5^j'
+SECRET_KEY = config('secret_key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -161,13 +163,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 LOGIN_URL = 'login'
-EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend' 
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER =os.getenv('mail')
-EMAIL_HOST_PASSWORD =os.getenv('mail_pwd')
+EMAIL_HOST_USER =config('mail')
+EMAIL_HOST_PASSWORD =config('mail_pwd')
 EMAIL_USE_TLS = True
-
 
 
 
